@@ -21,7 +21,7 @@
             >
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Dr. Indumathi Kuberan"
@@ -50,7 +50,6 @@
                 android:focusableInTouchMode="true"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                android:layout_marginTop="16dp"
                 android:ellipsize="end"
                 android:singleLine="false"
                 android:maxLines="2"
@@ -102,7 +101,7 @@
         android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:layout_gravity="top|center_horizontal"
-        android:src="@drawable/sampledoctorImg"
+        android:src="@drawable/sampledoctorimg"
         app:border_color="@color/light_grey"
         app:border_width="4dp"/>
 
