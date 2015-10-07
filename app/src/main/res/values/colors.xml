@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name = "ab_background">#ffffff</drawable>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="textcolor_white">#838383</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="primary_brown">#A6553D</color>
+    <color name="primary_dark_brown">#944e35</color>
+    <color name="primary_light_brown">#c76944</color>
+    <color name="light_grey">#E0E0E0</color>
+    <color name="signal_green">#3ece5b</color>
+
+    <!--    <color colorName="primary_red">#F44336</color>
+        <color colorName="primary_dark_red">#D32F2F</color>
+        <color colorName="primary_light_red">#FFCDD2</color>-->
+    <color name="accent_brown">#A6553D</color>
+    <color name="accent_white">#FFFFFF</color>
+</resources>
