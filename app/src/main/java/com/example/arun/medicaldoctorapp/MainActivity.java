@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseQuery;
-
 public class MainActivity extends AppCompatActivity
 {
 
@@ -17,10 +13,10 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ParsePush parsePush = new ParsePush();
-        ParseQuery pQuery = ParseInstallation.getQuery(); // <-- Installation query
-        pQuery.whereEqualTo("username", "123"); // <-- you'll probably want to target someone that's not the current user, so modify accordingly
-        parsePush.sendMessageInBackground("Yo bro", pQuery);
+//        ParsePush parsePush = new ParsePush();
+//        ParseQuery pQuery = ParseInstallation.getQuery();
+//        pQuery.whereEqualTo("username", "123");
+//        parsePush.sendMessageInBackground("Yo bro", pQuery);
     }
 
     @Override
