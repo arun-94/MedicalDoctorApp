@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Medicine Name:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:hint="Select name of medicine!"
+            android:inputType="textNoSuggestions|text"
+            android:lines="1"
+            android:maxLines="1"
+            android:textSize="14sp"
+            app:met_primaryColor="@color/primary_brown"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Type:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"/>
+
+        <RadioGroup
+            android:id="@+id/radiogroup_payment_type"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_cash"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Tablet/Capsule"
+                android:textSize="12sp"/>
+
+            <RadioButton
+                android:id="@+id/radio_cashandcard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="Liquid/Syrup"
+                android:textSize="12sp"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/amount_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Quantity/Strength:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:indeterminate="false"
+                android:longClickable="false"
+                android:max="2000"
+                android:progress="500"
+                android:progressBackgroundTint="@color/primary_brown"
+                android:progressBackgroundTintMode="src_atop"
+                android:progressTint="@color/signal_green"
+                android:splitTrack="false"
+                android:thumbTint="@color/signal_green"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:minWidth="64dp"
+                android:text="1MG"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Dosage:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <CheckBox
+                android:id="@+id/checkbox_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Morning"
+                android:textSize="12sp"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="Afternoon"
+                android:textSize="12sp"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="Evening"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Duration:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_duration"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:hint="How long to take this medicine?!"
+            android:inputType="textNoSuggestions|text"
+            android:lines="1"
+            android:maxLines="1"
+            android:textSize="12sp"
+            app:met_primaryColor="@color/primary_brown"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="Notes:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_notes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:hint="Any extra details required!"
+            android:inputType="textNoSuggestions|text"
+            android:lines="1"
+            android:maxLines="1"
+            android:textSize="12sp"
+            app:met_primaryColor="@color/primary_brown"
+            />
+    </LinearLayout>
+</ScrollView>
