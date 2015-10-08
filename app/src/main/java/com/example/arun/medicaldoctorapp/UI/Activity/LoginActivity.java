@@ -2,9 +2,9 @@ package com.example.arun.medicaldoctorapp.UI.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.arun.medicaldoctorapp.AppManager;
 import com.example.arun.medicaldoctorapp.ParseObjects.Doctor;
 import com.example.arun.medicaldoctorapp.R;
 import com.facebook.AccessToken;
@@ -21,7 +21,6 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity
@@ -55,7 +54,7 @@ public class LoginActivity extends BaseActivity
     }
 
     @OnClick(R.id.fbLoginButton)
-    private void onLoginClick()
+    void onLoginClick()
     {
         List<String> permissions = Arrays.asList("public_profile", "user_friends", "user_birthday");
 
