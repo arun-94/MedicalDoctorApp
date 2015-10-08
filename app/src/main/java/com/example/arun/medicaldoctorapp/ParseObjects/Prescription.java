@@ -2,6 +2,7 @@ package com.example.arun.medicaldoctorapp.ParseObjects;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -30,6 +31,11 @@ public class Prescription extends ParseObject
 
     public void putMedicineList(ArrayList<Medicine> medicines) {
         put("medicine_ids", medicines);
+    }
+
+    public static ParseQuery<Prescription> getQuery()
+    {
+        return ParseQuery.getQuery(Prescription.class);
     }
 
 

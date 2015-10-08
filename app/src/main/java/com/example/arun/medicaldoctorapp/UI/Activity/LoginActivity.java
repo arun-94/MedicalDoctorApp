@@ -27,6 +27,7 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity
 {
     private String LOG_TAG = "LoginActivity";
+    AppManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -169,6 +170,8 @@ public class LoginActivity extends BaseActivity
 
     private void gotoMainActivity()
     {
+       // manager.fetchDataFromParse();
+
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

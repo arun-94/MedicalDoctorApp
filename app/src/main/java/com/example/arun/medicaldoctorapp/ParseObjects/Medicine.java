@@ -2,6 +2,7 @@ package com.example.arun.medicaldoctorapp.ParseObjects;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 @ParseClassName("Medicine")
 public class Medicine extends ParseObject
@@ -17,5 +18,10 @@ public class Medicine extends ParseObject
 
     public String getMedicineUrl() {
         return "www.drugs.com/" + getMedicineName() + ".html";
+    }
+
+    public static ParseQuery<Medicine> getQuery()
+    {
+        return ParseQuery.getQuery(Medicine.class);
     }
 }
