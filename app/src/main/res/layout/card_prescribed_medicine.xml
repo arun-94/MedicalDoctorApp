@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/cardview_product_details_1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="112dp"
+    android:layout_margin="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="2dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:contentPadding="16dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:id="@+id/prescribed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/prescribed_quantity"
+            android:textAppearance="@style/Tisser_TextStyle_Title"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:text="Aspirin"/>
+
+        <TextView
+            android:id="@+id/prescribed_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/prescribed_name"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignStart="@+id/prescribed_name"
+            android:layout_below="@+id/prescribed_name"
+            android:layout_marginTop="4dp"
+            android:text="3 days"
+            android:textAppearance="@style/Tisser_TextStyle_Subtitle"
+            android:textAlignment="gravity"/>
+
+        <TextView
+            android:id="@+id/prescribed_quantity"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/prescribed_name"
+            android:textAppearance="@style/Tisser_TextStyle_Subtitle"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="0"
+            android:gravity="center_vertical|right"
+            android:maxWidth="100dp"
+            android:text="500MG"
+            android:textAlignment="gravity"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="16sp"
+            android:layout_alignBottom="@+id/prescribed_duration"/>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:maxWidth="100dp"
+                android:text="1"
+                android:textAlignment="gravity"
+                android:textSize="12sp"
+                android:layout_marginRight="8dp"/>
+
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:maxWidth="100dp"
+                android:text="1"
+                android:textAlignment="gravity"
+                android:layout_marginRight="8dp"
+                android:textSize="12sp"/>
+
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:maxWidth="100dp"
+                android:text="1"
+                android:textAlignment="gravity"
+                android:textSize="12sp"
+                android:layout_marginRight="8dp"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+
+
+
