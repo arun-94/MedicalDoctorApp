@@ -1,4 +1,4 @@
-package com.example.arun.medicaldoctorapp;
+package com.example.arun.medicaldoctorapp.UI.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.arun.medicaldoctorapp.ParseObjects.Doctor;
+import com.example.arun.medicaldoctorapp.R;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -23,25 +24,36 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity
+public class LoginActivity extends BaseActivity
 {
     private String LOG_TAG = "LoginActivity";
-
-    @OnClick(R.id.fbLoginButton)
-    void submit()
-    {
-        onLoginClick();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         ParseFacebookUtils.initialize(this);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
     }
 
+    @Override
+    protected int getLayoutResource()
+    {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void setupToolbar()
+    {
+
+    }
+
+    @Override
+    protected void setupLayout()
+    {
+
+    }
+
+    @OnClick(R.id.fbLoginButton)
     private void onLoginClick()
     {
         List<String> permissions = Arrays.asList("public_profile", "user_friends", "user_birthday");
@@ -153,7 +165,6 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
-
     }
 
     private void gotoMainActivity()
