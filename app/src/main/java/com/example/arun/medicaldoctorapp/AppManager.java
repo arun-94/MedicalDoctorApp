@@ -102,23 +102,33 @@ public class AppManager extends Application
         });
     }
 
-    public void addPrescription(Prescription p, User patient)
+    public void addPrescription(final Prescription p)
     {
-        final User doctor = (User) ParseUser.getCurrentUser();
-        doctor.addPrescriptionToList(p);
-
-        patient.addPrescriptionToList(p);
-
-        doctor.saveInBackground(new SaveCallback()
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.getInBackground(ParseUser.getCurrentUser().getObjectId(), new GetCallback<ParseUser>()
         {
             @Override
-            public void done(ParseException e)
+            public void done(ParseUser parseUser, ParseException e)
             {
-                doctor.fetchInBackground();
+                parseUser.addUnique("prescription_list", p);
+                parseUser.saveInBackground(new SaveCallback()
+                {
+                    @Override
+                    public void done(ParseException e)
+                    {
+                        if (e == null)
+                        {
+
+                        }
+                        else
+                        {
+                            Log.e("AppManager Doctor", e.getMessage());
+                        }
+                    }
+                });
             }
         });
-
-        patient.saveInBackground();
+        //patient.saveInBackground();
     }
 
     public void searchPatientByPhoneNumber(String phoneNo)

@@ -2,12 +2,13 @@ package com.example.arun.medicaldoctorapp.UI.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
+import com.example.arun.medicaldoctorapp.ParseObjects.PrescribedMedicine;
 import com.example.arun.medicaldoctorapp.R;
 
 import java.util.ArrayList;
@@ -18,32 +19,32 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.VHMedi
 {
 
     private final Context mContext;
-    private List<Medicine> mData;
-    private List<Medicine> arraylist;
+    private List<PrescribedMedicine> mData;
+    private List<PrescribedMedicine> arraylist;
 
     public MedicineAdapter(Context context)
     {
         mContext = context;
-        mData = new ArrayList<Medicine>();
+        mData = new ArrayList<PrescribedMedicine>();
     }
 
-    public void addItems(ArrayList<Medicine> newStores)
+    public void addItems(ArrayList<PrescribedMedicine> prescribedMedicines)
     {
         mData.clear();
         arraylist.clear();
-        mData.addAll(newStores);
-        arraylist.addAll(newStores);
+        mData.addAll(prescribedMedicines);
+        arraylist.addAll(prescribedMedicines);
         this.notifyDataSetChanged();
     }
 
-    public void add(Medicine s, int position)
+    public void add(PrescribedMedicine s, int position)
     {
         position = position == -1 ? getItemCount() : position;
         mData.add(position, s);
         notifyItemInserted(position);
     }
 
-    public void add(Medicine s)
+    public void add(PrescribedMedicine s)
     {
         mData.add(s);
         notifyDataSetChanged();
@@ -67,11 +68,17 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.VHMedi
     @Override
     public void onBindViewHolder(VHMedicineItem holder, final int position)
     {
-        Medicine store = mData.get(position);
+        PrescribedMedicine medicine = mData.get(position);
 
-        if (store != null)
+        if (medicine != null)
         {
-            //((VHMedicineItem) holder).storeCategoryImage.setI(storeItem.getUser().getUsername());
+
+            ((VHMedicineItem) holder).medicineName.setText(medicine.getMedicine().getMedicineName());
+            ((VHMedicineItem) holder).duration.setText(medicine.getDuration());
+            ((VHMedicineItem) holder).quantity.setText(medicine.getQuantity());
+            ((VHMedicineItem) holder).morning.setText("" + medicine.getTimesADay().get(0));
+            ((VHMedicineItem) holder).afternoon.setText("" + medicine.getTimesADay().get(1));
+            ((VHMedicineItem) holder).evening.setText("" + medicine.getTimesADay().get(2));
         }
     }
 
@@ -91,9 +98,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.VHMedi
         }
         else
         {
-            for (Medicine wp : arraylist)
+            for (PrescribedMedicine wp : arraylist)
             {
-                if (wp.getMedicineName().toLowerCase(Locale.getDefault()).contains(charText))
+                if (wp.getMedicine().getMedicineName().toLowerCase(Locale.getDefault()).contains(charText))
                 {
                     mData.add(wp);
                 }
@@ -107,16 +114,23 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.VHMedi
 
     public static class VHMedicineItem extends RecyclerView.ViewHolder
     {
-/*        public final TextView storeName;
-        public final TextView storeLastUpdatedAt;
-        public final TextView storePhotographerName;
-        public final ImageView storeCategoryImage;
-        public final ImageView storeExtraButton;*/
+        public final TextView medicineName;
+        public final TextView duration;
+        public final TextView quantity;
+        public final TextView morning;
+        public final TextView afternoon;
+        public final TextView evening;
+
 
         public VHMedicineItem(View view)
         {
             super(view);
-
+            this.medicineName = (TextView) view.findViewById(R.id.prescribed_name);
+            this.duration = (TextView) view.findViewById(R.id.prescribed_duration);
+            this.quantity = (TextView) view.findViewById(R.id.prescribed_quantity);
+            this.morning = (TextView) view.findViewById(R.id.textview_morning);
+            this.afternoon = (TextView) view.findViewById(R.id.textview_afternoon);
+            this.evening = (TextView) view.findViewById(R.id.textview_evening);
         }
     }
 }

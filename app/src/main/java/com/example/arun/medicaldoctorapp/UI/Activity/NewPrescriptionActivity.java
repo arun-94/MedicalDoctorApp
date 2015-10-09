@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -20,12 +21,14 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.PrescribedMedicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.Prescription;
 import com.example.arun.medicaldoctorapp.ParseObjects.User;
 import com.example.arun.medicaldoctorapp.R;
 import com.example.arun.medicaldoctorapp.UI.Adapter.MedicineAdapter;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,13 +44,36 @@ public class NewPrescriptionActivity extends BaseActivity
     private MedicineAdapter mAdapter;
     private Prescription prescription;
     private User patient;
+    private ArrayList<PrescribedMedicine> prescribedMedicines;
     private ArrayList<String> medicineNames;
+    private ArrayList<String> durationList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
         prescription = new Prescription();
+        medicineNames = new ArrayList<>();
+        durationList = new ArrayList<>();
+        prescribedMedicines = new ArrayList<>();
+        setDurationList();
+        super.onCreate(savedInstanceState);
+    }
+
+    private void setDurationList()
+    {
+        durationList.add("1 Day");
+        durationList.add("1 Week");
+        durationList.add("2 Weeks");
+        durationList.add("3 Weeks");
+        durationList.add("4 Weeks");
+        durationList.add("1 Month");
+        durationList.add("3 Months");
+        durationList.add("2 Days");
+        durationList.add("3 Days");
+        durationList.add("4 Days");
+        durationList.add("5 Days");
+        durationList.add("6 Days");
+
     }
 
     @Override
@@ -69,7 +95,6 @@ public class NewPrescriptionActivity extends BaseActivity
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(llm);
-        medicineNames = new ArrayList<>();
         for (int i = 0; i < manager.medicinesList.size(); i++)
         {
             medicineNames.add(manager.medicinesList.get(i).getMedicineName());
@@ -114,7 +139,7 @@ public class NewPrescriptionActivity extends BaseActivity
         View customDialogView = inflater.inflate(R.layout.popup_add_medicine, null, false);
 
         final AutoCompleteTextView etMedicineName = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_name);
-        final EditText etMedicineDuration = (EditText) customDialogView.findViewById(R.id.editText_medicine_duration);
+        final AutoCompleteTextView etMedicineDuration = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_duration);
         final EditText etMedicineNotes = (EditText) customDialogView.findViewById(R.id.editText_medicine_notes);
         final TextView tvQuantity = (TextView) customDialogView.findViewById(R.id.textview_quantity);
         final TextView tvLabel = (TextView) customDialogView.findViewById(R.id.textview_MG_or_ML);
@@ -125,11 +150,17 @@ public class NewPrescriptionActivity extends BaseActivity
         final SeekBar seekbarQuantity = (SeekBar) customDialogView.findViewById(R.id.seekbar_quantity);
 
 
-        ArrayAdapter<String> localityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, medicineNames);
+        ArrayAdapter<String> medicineNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, medicineNames);
+        ArrayAdapter<String> durationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, durationList);
 
-        etMedicineName.setAdapter(localityAdapter);
+
+        etMedicineName.setAdapter(medicineNameAdapter);
         etMedicineName.setValidator(new NamesValidator());
         etMedicineName.setOnFocusChangeListener(new FocusListener());
+
+        etMedicineDuration.setAdapter(durationAdapter);
+        etMedicineDuration.setValidator(new DurationValidator());
+        etMedicineDuration.setOnFocusChangeListener(new FocusListener());
 
         seekbarQuantity.incrementProgressBy(50);
         seekbarQuantity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
@@ -206,8 +237,8 @@ public class NewPrescriptionActivity extends BaseActivity
                 //prescription.putMedicineList(prescribedMedicineArrayList);
 
                 //manager.addPrescription(prescription, manager.selectedPatient);
-
-                mAdapter.add(new Medicine());
+                mAdapter.add(prescribedMedicine);
+                prescribedMedicines.add(prescribedMedicine);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
@@ -254,6 +285,63 @@ public class NewPrescriptionActivity extends BaseActivity
         {
             return "";
         }
+    }
+
+    class DurationValidator implements AutoCompleteTextView.Validator
+    {
+
+        @Override
+        public boolean isValid(CharSequence text)
+        {
+            Collections.sort(durationList);
+            if (Collections.binarySearch(durationList, text.toString()) > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public CharSequence fixText(CharSequence invalidText)
+        {
+            return "";
+        }
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings)
+        {
+            prescription.putMedicineList(prescribedMedicines);
+            prescription.setDoctorID(ParseUser.getCurrentUser());
+            prescription.setPatientID(manager.selectedPatient);
+            prescription.saveInBackground(new SaveCallback()
+            {
+                @Override
+                public void done(ParseException e)
+                {
+                    manager.addPrescription(prescription);
+                }
+            });
+
+            /*Intent i = new Intent(BaseActivity.this, AboutActivity.class);
+            startActivity(i);
+            return true;*/
+        }
+        else if (id == android.R.id.home)
+        {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     class FocusListener implements View.OnFocusChangeListener

@@ -40,6 +40,11 @@ public class PrescribedMedicine extends ParseObject
         put("medicine", medicine);
     }
 
+    public Medicine getMedicine() {
+        return (Medicine) get("medicine");
+    }
+
+
     public void setNotes(String notes) {
         put("notes", notes);
     }
