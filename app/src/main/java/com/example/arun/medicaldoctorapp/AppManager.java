@@ -14,10 +14,15 @@ import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -150,5 +155,29 @@ public class AppManager extends Application
                 });
             }
         });
+    }
+
+    public void pushPrescriptionToPatient(Patient patient) {
+
+        ParseQuery pQuery = ParseInstallation.getQuery();
+        pQuery.whereEqualTo("username", patient.getUsername());
+
+        try
+        {
+            JSONObject data = new JSONObject("{\"alert\":\"You have a new prescription!\"," +
+                    "\"uri\": \"com.example.arun.medicaldoctorapp.PrescriptionActivity\"}"); // Add uri latter
+
+            ParsePush parsePush = new ParsePush();
+            parsePush.setQuery(pQuery);
+            parsePush.setMessage("You have a new prescription");
+            parsePush.setData(data);
+            parsePush.sendInBackground();
+
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+
     }
 }

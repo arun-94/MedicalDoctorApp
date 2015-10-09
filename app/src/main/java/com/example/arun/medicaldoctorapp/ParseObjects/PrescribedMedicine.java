@@ -40,6 +40,22 @@ public class PrescribedMedicine extends ParseObject
         put("medicine", medicine);
     }
 
+    public void setNotes(String notes) {
+        put("notes", notes);
+    }
+
+    public String getNotes() {
+        return getString("notes");
+    }
+
+    public void setType(Boolean type) {
+        put("is_capsule", type);
+    }
+
+    public boolean isCapsule() {
+        return getBoolean("is_capsule");
+    }
+
     public static ParseQuery<PrescribedMedicine> getQuery()
     {
         return ParseQuery.getQuery(PrescribedMedicine.class);
