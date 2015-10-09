@@ -30,6 +30,16 @@ public class Prescription extends ParseObject
         put("doctor_id", doctor);
     }
 
+    public ParseUser getPatientID() {
+        return (ParseUser) get("patient_id");
+    }
+
+    public void setPatientID(ParseUser patientID)
+    {
+        put("patient_id", patientID);
+    }
+
+
     public void putMedicineList(ArrayList<PrescribedMedicine> medicines) {
         put("medicine_ids", medicines);
     }

@@ -47,15 +47,14 @@
             android:elevation="10dp">
 
             <Button
-                android:id="@+id/fbLoginButton"
                 style="?android:attr/buttonStyleSmall"
+                android:id="@+id/loginButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/com_facebook_blue"
-                android:text="Login with Facebook"
+                android:background="@color/com_facebook_button_like_background_color_selected"
+                android:text="Test Doctor Login"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                />
+                android:textColor="@android:color/white"/>
 
         </FrameLayout>
 
