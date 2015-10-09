@@ -35,7 +35,7 @@
             android:lines="1"
             android:maxLines="1"
             android:textSize="14sp"
-            app:met_primaryColor="@color/primary_brown"
+            app:met_primaryColor="@color/app_primary"
             />
 
         <TextView
@@ -103,10 +103,7 @@
                 android:longClickable="false"
                 android:max="2000"
                 android:progress="500"
-                android:progressBackgroundTint="@color/primary_brown"
-                android:progressBackgroundTintMode="src_atop"
                 android:progressTint="@color/signal_green"
-                android:splitTrack="false"
                 android:thumbTint="@color/signal_green"/>
 
             <LinearLayout
@@ -213,7 +210,7 @@
             android:lines="1"
             android:maxLines="1"
             android:textSize="12sp"
-            app:met_primaryColor="@color/primary_brown"
+            app:met_primaryColor="@color/app_primary"
             />
 
         <TextView
@@ -236,7 +233,7 @@
             android:lines="1"
             android:maxLines="1"
             android:textSize="12sp"
-            app:met_primaryColor="@color/primary_brown"
+            app:met_primaryColor="@color/app_primary"
             />
     </LinearLayout>
 </ScrollView>
