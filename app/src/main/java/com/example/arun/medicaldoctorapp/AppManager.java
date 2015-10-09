@@ -4,9 +4,8 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.example.arun.medicaldoctorapp.ParseObjects.Doctor;
+import com.example.arun.medicaldoctorapp.ParseObjects.User;
 import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
-import com.example.arun.medicaldoctorapp.ParseObjects.Patient;
 import com.example.arun.medicaldoctorapp.ParseObjects.PrescribedMedicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.Prescription;
 import com.facebook.FacebookSdk;
@@ -34,7 +33,7 @@ public class AppManager extends Application
 
     public ArrayList<Prescription> currentDoctorPrescriptions = new ArrayList<>();
     public ArrayList<Medicine> medicinesList = new ArrayList<>();
-    public Patient selectedPatient;
+    public ParseUser selectedPatient;
 
     @Override
     public void onCreate()
@@ -47,8 +46,7 @@ public class AppManager extends Application
     private void parseInit()
     {
         FacebookSdk.sdkInitialize(getApplicationContext());
-        ParseObject.registerSubclass(Patient.class);
-//        ParseObject.registerSubclass(Doctor.class);
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Medicine.class);
         ParseObject.registerSubclass(PrescribedMedicine.class);
         ParseObject.registerSubclass(Prescription.class);
@@ -79,11 +77,11 @@ public class AppManager extends Application
 
     private void refreshUserDataAndFetchNewPrescriptionList()
     {
-        final ParseUser currentUser = Doctor.getCurrentUser();
-        currentUser.fetchInBackground(new GetCallback<Doctor>()
+        final ParseUser currentUser = User.getCurrentUser();
+        currentUser.fetchInBackground(new GetCallback<User>()
         {
             @Override
-            public void done(final Doctor parseObject, ParseException e)
+            public void done(final User parseObject, ParseException e)
             {
                 ParseQuery<ParseUser> query = ParseUser.getQuery();
 
@@ -96,7 +94,7 @@ public class AppManager extends Application
                     public void done(ParseUser parseUser, ParseException e)
                     {
 
-                        Doctor doctor = (Doctor) parseUser;
+                        User doctor = (User) parseUser;
                         currentDoctorPrescriptions.addAll(doctor.getPrescriptionList());
                     }
                 });
@@ -104,9 +102,9 @@ public class AppManager extends Application
         });
     }
 
-    public void addPrescription(Prescription p, Patient patient)
+    public void addPrescription(Prescription p, User patient)
     {
-        final Doctor doctor = (Doctor) ParseUser.getCurrentUser();
+        final User doctor = (User) ParseUser.getCurrentUser();
         doctor.addPrescriptionToList(p);
 
         patient.addPrescriptionToList(p);
@@ -139,7 +137,7 @@ public class AppManager extends Application
                     Log.d("PATIENT", "No patient with that number");
                 else
                 {
-                    selectedPatient = (Patient) list.get(0);
+                    selectedPatient = (User) list.get(0);
                     Log.d("PATIENT", "Selected Patient class " + selectedPatient.getClassName());
                     Log.d("PATIENT", "The patient from list is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
                     Log.d("PATIENT", "The patient is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
@@ -160,7 +158,7 @@ public class AppManager extends Application
             @Override
             public void done(ParseException e)
             {
-                final Doctor doctor = (Doctor) ParseUser.getCurrentUser();
+                final User doctor = (User) ParseUser.getCurrentUser();
                 doctor.setSignature(pf);
                 doctor.saveInBackground(new SaveCallback()
                 {
@@ -174,7 +172,7 @@ public class AppManager extends Application
         });
     }
 
-    public void pushPrescriptionToPatient(Patient patient)
+    public void pushPrescriptionToPatient(User patient)
     {
 
         ParseQuery pQuery = ParseInstallation.getQuery();

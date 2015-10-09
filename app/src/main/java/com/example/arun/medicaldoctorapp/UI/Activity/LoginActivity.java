@@ -1,17 +1,11 @@
 package com.example.arun.medicaldoctorapp.UI.Activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.AppManager;
-import com.example.arun.medicaldoctorapp.ParseObjects.Doctor;
+import com.example.arun.medicaldoctorapp.ParseObjects.User;
 import com.example.arun.medicaldoctorapp.R;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -93,7 +87,7 @@ public class LoginActivity extends BaseActivity
 
     private void fetchDataFromFB()
     {
-        final ParseUser currentUser = Doctor.getCurrentUser();
+        final ParseUser currentUser = User.getCurrentUser();
         if (!currentUser.getUsername().equals(""))
         {
             gotoMainActivity();
@@ -115,7 +109,7 @@ public class LoginActivity extends BaseActivity
             {
                 if (jsonObject != null)
                 {
-                    ParseUser currentUser = Doctor.getCurrentUser();
+                    ParseUser currentUser = User.getCurrentUser();
                     try
                     {
                         //userProfile.put("facebookId", jsonObject.getLong("id"));
