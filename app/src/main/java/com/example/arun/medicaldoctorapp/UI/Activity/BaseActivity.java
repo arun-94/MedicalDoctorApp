@@ -30,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         super.onCreate(savedInstanceState);
 
         manager = (AppManager) getApplication();
+        manager.delegate = this;
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
 

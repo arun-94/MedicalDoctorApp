@@ -16,11 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.arun.medicaldoctorapp.Constants;
 import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.PrescribedMedicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.Prescription;
@@ -39,10 +41,13 @@ public class NewPrescriptionActivity extends BaseActivity
     @Bind(R.id.medicine_recycler) RecyclerView mRecyclerView;
     @Bind(R.id.editText_patient_phone_number) EditText etPhoneNum;
     @Bind(R.id.progress_validate_patient) ProgressBar progressValidation;
+    @Bind(R.id.imageview_validation) ImageView imageValidation;
+    @Bind(R.id.patient_profile_layout) View patientProfileLayout;
+    @Bind(R.id.phonenumber_layout) View phoneNumberLayout;
+    @Bind(R.id.textView_number_label) TextView tvPhoneLabel;
 
     private MedicineAdapter mAdapter;
     private Prescription prescription;
-    private User patient;
     private ArrayList<String> medicineNames;
 
     @Override
@@ -68,6 +73,10 @@ public class NewPrescriptionActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
+
+        progressValidation.setVisibility(View.GONE);
+        imageValidation.setVisibility(View.GONE);
+        patientProfileLayout.setVisibility(View.GONE);
 
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -98,10 +107,11 @@ public class NewPrescriptionActivity extends BaseActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-                if (s.length() >= 8)
+                if (s.length() >= 10)
                 {
                     if (isValidPhoneNumber(s))
                     {
+                        progressValidation.setVisibility(View.VISIBLE);
                         manager.searchPatientByPhoneNumber(s.toString());
                     }
                 }
@@ -187,7 +197,8 @@ public class NewPrescriptionActivity extends BaseActivity
 
                 for (int i = 0; i < manager.medicinesList.size(); i++)
                 {
-                    if(manager.medicinesList.get(i).getMedicineName().contains(etMedicineName.getText().toString().trim())) {
+                    if (manager.medicinesList.get(i).getMedicineName().contains(etMedicineName.getText().toString().trim()))
+                    {
                         prescribedMedicine.setMedicine(manager.medicinesList.get(i));
                         break;
                     }
@@ -271,6 +282,26 @@ public class NewPrescriptionActivity extends BaseActivity
                 Log.v("Test", "Performing validation");
                 ((AutoCompleteTextView) v).performValidation();
             }
+        }
+    }
+
+    @Override
+    public void processFinish(String result, int type)
+    {
+        if (type == Constants.TYPE_VALID_NUMBER)
+        {
+            progressValidation.setVisibility(View.GONE);
+            imageValidation.setVisibility(View.VISIBLE);
+            patientProfileLayout.setVisibility(View.VISIBLE);
+            phoneNumberLayout.setVisibility(View.GONE);
+            tvPhoneLabel.setVisibility(View.GONE);
+            //Set here tick image
+        }
+        else if (type == Constants.TYPE_INVALID_NUMBER)
+        {
+            progressValidation.setVisibility(View.GONE);
+            imageValidation.setVisibility(View.VISIBLE);
+            //Set here X image
         }
     }
 }
