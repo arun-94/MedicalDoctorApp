@@ -2,6 +2,7 @@ package com.example.arun.medicaldoctorapp;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.example.arun.medicaldoctorapp.ParseObjects.Doctor;
 import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
@@ -31,8 +32,8 @@ import java.util.List;
 public class AppManager extends Application
 {
 
-    public ArrayList<Prescription> currentDoctorPrescriptions;
-    public ArrayList<Medicine> medicinesList;
+    public ArrayList<Prescription> currentDoctorPrescriptions = new ArrayList<>();
+    public ArrayList<Medicine> medicinesList = new ArrayList<>();
     public Patient selectedPatient;
 
     @Override
@@ -40,11 +41,14 @@ public class AppManager extends Application
     {
         super.onCreate();
         parseInit();
+        fetchAllDataFromParse();
     }
 
-    private void parseInit() {
+    private void parseInit()
+    {
         FacebookSdk.sdkInitialize(getApplicationContext());
-        ParseObject.registerSubclass(Doctor.class);
+        ParseObject.registerSubclass(Patient.class);
+//        ParseObject.registerSubclass(Doctor.class);
         ParseObject.registerSubclass(Medicine.class);
         ParseObject.registerSubclass(PrescribedMedicine.class);
         ParseObject.registerSubclass(Prescription.class);
@@ -53,11 +57,12 @@ public class AppManager extends Application
 
     public void fetchAllDataFromParse()
     {
-        refreshUserDataAndFetchNewPrescriptionList();
+        //refreshUserDataAndFetchNewPrescriptionList();
         fetchMedicineList();
     }
 
-    public void fetchMedicineList() {
+    public void fetchMedicineList()
+    {
 
         ParseQuery<Medicine> query = Medicine.getQuery();
 
@@ -72,7 +77,8 @@ public class AppManager extends Application
         });
     }
 
-    private void refreshUserDataAndFetchNewPrescriptionList() {
+    private void refreshUserDataAndFetchNewPrescriptionList()
+    {
         final ParseUser currentUser = Doctor.getCurrentUser();
         currentUser.fetchInBackground(new GetCallback<Doctor>()
         {
@@ -117,8 +123,9 @@ public class AppManager extends Application
         patient.saveInBackground();
     }
 
-    public void searchPatientByPhoneNumber(String phoneNo) {
-        ParseQuery<ParseUser> query = Patient.getQuery();
+    public void searchPatientByPhoneNumber(String phoneNo)
+    {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereEqualTo("phone", phoneNo);
 
         query.findInBackground(new FindCallback<ParseUser>()
@@ -127,12 +134,22 @@ public class AppManager extends Application
             @Override
             public void done(List<ParseUser> list, ParseException e)
             {
-                selectedPatient = (Patient) list.get(0);
+                Log.d("PATIENT", "Size of list returned is " + list.size());
+                if(list.size() == 0)
+                    Log.d("PATIENT", "No patient with that number");
+                else
+                {
+                    selectedPatient = (Patient) list.get(0);
+                    Log.d("PATIENT", "Selected Patient class " + selectedPatient.getClassName());
+                    Log.d("PATIENT", "The patient from list is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
+                    Log.d("PATIENT", "The patient is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
+                }
             }
         });
     }
 
-    public void saveSignature(Bitmap bitmap) {
+    public void saveSignature(Bitmap bitmap)
+    {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
         byte[] byteArray = stream.toByteArray();
@@ -157,15 +174,15 @@ public class AppManager extends Application
         });
     }
 
-    public void pushPrescriptionToPatient(Patient patient) {
+    public void pushPrescriptionToPatient(Patient patient)
+    {
 
         ParseQuery pQuery = ParseInstallation.getQuery();
         pQuery.whereEqualTo("username", patient.getUsername());
 
         try
         {
-            JSONObject data = new JSONObject("{\"alert\":\"You have a new prescription!\"," +
-                    "\"uri\": \"com.example.arun.medicaldoctorapp.PrescriptionActivity\"}"); // Add uri latter
+            JSONObject data = new JSONObject("{\"alert\":\"You have a new prescription!\"," + "\"uri\": \"com.example.arun.medicaldoctorapp.PrescriptionActivity\"}"); // Add uri latter
 
             ParsePush parsePush = new ParsePush();
             parsePush.setQuery(pQuery);
@@ -173,7 +190,8 @@ public class AppManager extends Application
             parsePush.setData(data);
             parsePush.sendInBackground();
 
-        } catch (JSONException e)
+        }
+        catch (JSONException e)
         {
             e.printStackTrace();
         }

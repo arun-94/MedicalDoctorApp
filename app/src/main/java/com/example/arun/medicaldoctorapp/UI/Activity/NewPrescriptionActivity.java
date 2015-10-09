@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
 import com.example.arun.medicaldoctorapp.R;
@@ -20,6 +25,8 @@ import butterknife.OnClick;
 public class NewPrescriptionActivity extends BaseActivity
 {
     @Bind(R.id.medicine_recycler) RecyclerView mRecyclerView;
+    @Bind(R.id.editText_patient_phone_number) EditText etPhoneNum;
+
     private MedicineAdapter mAdapter;
 
     @Override
@@ -49,6 +56,33 @@ public class NewPrescriptionActivity extends BaseActivity
         mRecyclerView.setLayoutManager(llm);
         mAdapter = new MedicineAdapter(NewPrescriptionActivity.this);
         mRecyclerView.setAdapter(mAdapter);
+
+        etPhoneNum.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (s.length() >= 8)
+                {
+                    if (isValidPhoneNumber(s))
+                    {
+                        manager.searchPatientByPhoneNumber(s.toString());
+                    }
+                }
+            }
+        });
     }
 
     @OnClick(R.id.fab_addMedicine)
@@ -63,6 +97,7 @@ public class NewPrescriptionActivity extends BaseActivity
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
+                //@Bind EditText
                 mAdapter.add(new Medicine());
             }
         });
@@ -75,5 +110,14 @@ public class NewPrescriptionActivity extends BaseActivity
         builder.setView(customDialogView);
         builder.create();
         builder.show();
+    }
+
+    private boolean isValidPhoneNumber(CharSequence phoneNumber)
+    {
+        if (!TextUtils.isEmpty(phoneNumber))
+        {
+            return Patterns.PHONE.matcher(phoneNumber).matches();
+        }
+        return false;
     }
 }
