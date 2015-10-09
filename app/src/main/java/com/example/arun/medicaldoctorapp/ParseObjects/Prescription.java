@@ -20,9 +20,9 @@ public class Prescription extends ParseObject
     }
 
     @SuppressWarnings("unchecked")
-    public ArrayList<Medicine> getMedicineList()
+    public ArrayList<PrescribedMedicine> getMedicineList()
     {
-        return (ArrayList<Medicine>) get("medicine_ids");
+        return (ArrayList<PrescribedMedicine>) get("medicine_ids");
     }
 
     public void setDoctorID(ParseUser doctor)
@@ -30,7 +30,7 @@ public class Prescription extends ParseObject
         put("doctor_id", doctor);
     }
 
-    public void putMedicineList(ArrayList<Medicine> medicines) {
+    public void putMedicineList(ArrayList<PrescribedMedicine> medicines) {
         put("medicine_ids", medicines);
     }
 

@@ -38,8 +38,12 @@ public class Doctor extends ParseUser
         return (ArrayList<Prescription>) get("prescription_list");
     }
 
+    public void addPrescriptionToList(Prescription prescription) {
+        addUnique("prescription_list", prescription);
+    }
 
     public void setSignature( ParseFile signature) {
         put("signature", signature);
     }
+
 }

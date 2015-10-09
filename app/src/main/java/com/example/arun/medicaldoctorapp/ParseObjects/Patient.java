@@ -32,4 +32,9 @@ public class Patient extends ParseUser
     public ArrayList<Prescription> getPrescriptionList() {
         return (ArrayList<Prescription>) get("prescription_list");
     }
+
+    public void addPrescriptionToList(Prescription p)
+    {
+        addUnique("prescription_list", p);
+    }
 }
