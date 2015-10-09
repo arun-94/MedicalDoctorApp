@@ -38,4 +38,5 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.rengwuxian.materialedittext:library:2.0.3'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
 }

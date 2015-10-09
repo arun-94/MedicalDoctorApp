@@ -73,18 +73,28 @@
                         android:minLines="1"
                         android:textSize="20sp"/>
 
+                    <ProgressBar
+                        android:id="@+id/progress_validate_patient"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="0"
+                        android:layout_marginLeft="8dp"
+                        android:indeterminate="true"/>
+
                     <ImageView
                         android:layout_width="30dp"
+                        android:visibility="gone"
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0"/>
+
                 </LinearLayout>
 
                 <include
-                    android:id="@+id/patient_profile_layout"
                     layout="@layout/patient_profile_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/patient_profile_layout"
                     />
             </LinearLayout>
 

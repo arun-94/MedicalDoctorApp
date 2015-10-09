@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class NewPrescriptionActivity extends BaseActivity
 {
     @Bind(R.id.medicine_recycler) RecyclerView mRecyclerView;
     @Bind(R.id.editText_patient_phone_number) EditText etPhoneNum;
+    @Bind(R.id.progress_validate_patient) ProgressBar progressValidation;
 
     private MedicineAdapter mAdapter;
     private Prescription prescription;
@@ -60,11 +62,13 @@ public class NewPrescriptionActivity extends BaseActivity
     protected void setupToolbar()
     {
         toolbar.setTitle("New Prescription");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     protected void setupLayout()
     {
+
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);

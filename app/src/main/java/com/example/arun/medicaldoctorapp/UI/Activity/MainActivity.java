@@ -13,9 +13,13 @@ public class MainActivity extends BaseActivity
 {
 
     @OnClick(R.id.home_fab_new_prescription)
-    void addPrescription() {
+    void addPrescription()
+    {
         gotoPrescriptionActivity();
     }
+
+    @OnClick(R.id.home_fab_view_prescriptions)
+    void viewPrescriptions() {gotoViewPrescriptionActivity(); }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,9 +72,14 @@ public class MainActivity extends BaseActivity
 
     private void gotoPrescriptionActivity()
     {
-        // manager.fetchDataFromParse();
-
         Intent intent = new Intent(MainActivity.this, NewPrescriptionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void gotoViewPrescriptionActivity()
+    {
+        Intent intent = new Intent(MainActivity.this, PrescriptionListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
