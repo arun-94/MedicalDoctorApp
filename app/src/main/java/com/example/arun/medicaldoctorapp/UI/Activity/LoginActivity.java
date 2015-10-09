@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity
     {
 
     }
+
     @OnClick(R.id.loginButton)
     void onLoginClick()
     {
@@ -59,9 +60,10 @@ public class LoginActivity extends BaseActivity
             }
         });
     }
+
     private void gotoMainActivity()
     {
-       // manager.fetchDataFromParse();
+        // manager.fetchDataFromParse();
 
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

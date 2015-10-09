@@ -87,4 +87,15 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <style name="Klassy_TextStyle_Subtitle" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/grey_klassy</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Klassy_TextStyle_Title" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 </resources>

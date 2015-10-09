@@ -34,6 +34,7 @@ public class AppManager extends Application
     public ArrayList<Prescription> currentDoctorPrescriptions = new ArrayList<>();
     public ArrayList<Medicine> medicinesList = new ArrayList<>();
     public User selectedPatient;
+    public AsyncResponse delegate = null;
 
     @Override
     public void onCreate()
@@ -144,13 +145,17 @@ public class AppManager extends Application
             {
                 Log.d("PATIENT", "Size of list returned is " + list.size());
                 if(list.size() == 0)
+                {
                     Log.d("PATIENT", "No patient with that number");
+                    delegate.processFinish("error", Constants.TYPE_INVALID_NUMBER);
+                }
                 else
                 {
                     selectedPatient = (User) list.get(0);
                     Log.d("PATIENT", "Selected Patient class " + selectedPatient.getClassName());
                     Log.d("PATIENT", "The patient from list is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
                     Log.d("PATIENT", "The patient is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
+                    delegate.processFinish("error", Constants.TYPE_VALID_NUMBER);
                 }
             }
         });

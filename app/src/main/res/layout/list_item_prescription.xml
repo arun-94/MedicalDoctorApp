@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?android:attr/selectableItemBackground"
+              android:clickable="true"
+              android:descendantFocusability="blocksDescendants"
+              android:focusable="true"
+              android:orientation="horizontal"
+              android:paddingBottom="16dp"
+              android:paddingLeft="16dp"
+              android:paddingRight="8dp"
+              android:paddingTop="8dp">
+
+    <com.example.arun.medicaldoctorapp.UI.Custom.ProfilePictureView
+        android:id="@+id/prescription_profile_pic"
+        com_facebook_preset_size="small"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:id="@+id/prescription_patient_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/right_side_layout"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Arun Swaminathan"
+            android:textAppearance="@style/Klassy_TextStyle_Title"/>
+
+        <TextView
+            android:id="@+id/prescription_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/prescription_patient_name"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignStart="@+id/prescription_patient_name"
+            android:layout_marginTop="2dp"
+            android:gravity="bottom"
+            android:text="Mohit Nimbalkar"
+            android:textAlignment="gravity"
+            android:textAppearance="@style/Klassy_TextStyle_Subtitle"/>
+
+        <LinearLayout android:id="@+id/right_side_layout"
+                      xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:layout_alignParentEnd="true"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentTop="true"
+                      android:layout_alignTop="@+id/prescription_patient_name"
+                      android:layout_marginLeft="8dp"
+                      android:layout_weight="0"
+                      android:gravity="top"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="16dp">
+
+            <TextView
+                android:id="@+id/prescription_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="top"
+                android:layout_weight="0"
+                android:gravity="right"
+                android:maxWidth="100dp"
+                android:paddingTop="8dp"
+                android:text="10 weeks ago"
+                android:textAlignment="gravity"
+                android:textAppearance="@style/Klassy_TextStyle_Subtitle"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
