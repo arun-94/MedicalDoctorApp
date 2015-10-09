@@ -1,13 +1,21 @@
 package com.example.arun.medicaldoctorapp.UI.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.arun.medicaldoctorapp.R;
 
+import butterknife.OnClick;
+
 public class MainActivity extends BaseActivity
 {
+
+    @OnClick(R.id.home_fab_new_prescription)
+    void addPrescription() {
+        gotoPrescriptionActivity();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,4 +65,14 @@ public class MainActivity extends BaseActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void gotoPrescriptionActivity()
+    {
+        // manager.fetchDataFromParse();
+
+        Intent intent = new Intent(MainActivity.this, NewPrescriptionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
 }

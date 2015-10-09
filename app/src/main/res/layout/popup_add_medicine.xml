@@ -25,7 +25,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="12sp"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
             android:id="@+id/editText_medicine_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

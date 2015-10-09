@@ -12,6 +12,8 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -25,8 +27,8 @@ import com.example.arun.medicaldoctorapp.ParseObjects.User;
 import com.example.arun.medicaldoctorapp.R;
 import com.example.arun.medicaldoctorapp.UI.Adapter.MedicineAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -39,6 +41,7 @@ public class NewPrescriptionActivity extends BaseActivity
     private MedicineAdapter mAdapter;
     private Prescription prescription;
     private User patient;
+    private ArrayList<String> medicineNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,6 +69,11 @@ public class NewPrescriptionActivity extends BaseActivity
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(llm);
+        medicineNames = new ArrayList<>();
+        for (int i = 0; i < manager.medicinesList.size(); i++)
+        {
+            medicineNames.add(manager.medicinesList.get(i).getMedicineName());
+        }
         mAdapter = new MedicineAdapter(NewPrescriptionActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -105,7 +113,7 @@ public class NewPrescriptionActivity extends BaseActivity
         builder.setTitle("Prescribe New Medicine");
         View customDialogView = inflater.inflate(R.layout.popup_add_medicine, null, false);
 
-        final EditText etMedicineName = (EditText) customDialogView.findViewById(R.id.editText_medicine_name);
+        final AutoCompleteTextView etMedicineName = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_name);
         final EditText etMedicineDuration = (EditText) customDialogView.findViewById(R.id.editText_medicine_duration);
         final EditText etMedicineNotes = (EditText) customDialogView.findViewById(R.id.editText_medicine_notes);
         final TextView tvQuantity = (TextView) customDialogView.findViewById(R.id.textview_quantity);
@@ -115,6 +123,13 @@ public class NewPrescriptionActivity extends BaseActivity
         final CheckBox checkEvening = (CheckBox) customDialogView.findViewById(R.id.checkbox_evening);
         final RadioGroup radioMedicineType = (RadioGroup) customDialogView.findViewById(R.id.radiogroup_medicine_type);
         final SeekBar seekbarQuantity = (SeekBar) customDialogView.findViewById(R.id.seekbar_quantity);
+
+
+        ArrayAdapter<String> localityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, medicineNames);
+
+        etMedicineName.setAdapter(localityAdapter);
+        etMedicineName.setValidator(new NamesValidator());
+        etMedicineName.setOnFocusChangeListener(new FocusListener());
 
         seekbarQuantity.incrementProgressBy(50);
         seekbarQuantity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
@@ -163,12 +178,16 @@ public class NewPrescriptionActivity extends BaseActivity
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
-/*                PrescribedMedicine prescribedMedicine = new PrescribedMedicine();
+                PrescribedMedicine prescribedMedicine = new PrescribedMedicine();
                 //prescribedMedicine.set
 
-                Medicine m = new Medicine();
-                m.setObjectId("cQsbtWaiUl");
-                prescribedMedicine.setMedicine(m);
+                for (int i = 0; i < manager.medicinesList.size(); i++)
+                {
+                    if(manager.medicinesList.get(i).getMedicineName().contains(etMedicineName.getText().toString().trim())) {
+                        prescribedMedicine.setMedicine(manager.medicinesList.get(i));
+                        break;
+                    }
+                }
 
                 prescribedMedicine.setDuration(etMedicineDuration.getText().toString());
                 prescribedMedicine.setNotes(etMedicineNotes.getText().toString());
@@ -182,11 +201,11 @@ public class NewPrescriptionActivity extends BaseActivity
 
                 prescribedMedicine.setTimesADay(timesADay);
                 prescribedMedicine.setQuantity(tvQuantity.getText().toString() + tvLabel.getText().toString());
-                ArrayList<PrescribedMedicine> prescribedMedicineArrayList = new ArrayList<PrescribedMedicine>();
-                prescribedMedicineArrayList.add(prescribedMedicine);
-                prescription.putMedicineList(prescribedMedicineArrayList);
+                //ArrayList<PrescribedMedicine> prescribedMedicineArrayList = new ArrayList<PrescribedMedicine>();
+                //prescribedMedicineArrayList.add(prescribedMedicine);
+                //prescription.putMedicineList(prescribedMedicineArrayList);
 
-                manager.addPrescription(prescription, manager.selectedPatient);*/
+                //manager.addPrescription(prescription, manager.selectedPatient);
 
                 mAdapter.add(new Medicine());
             }
@@ -214,5 +233,40 @@ public class NewPrescriptionActivity extends BaseActivity
     public int boolToInt(boolean b)
     {
         return b ? 1 : 0;
+    }
+
+    class NamesValidator implements AutoCompleteTextView.Validator
+    {
+
+        @Override
+        public boolean isValid(CharSequence text)
+        {
+            Collections.sort(medicineNames);
+            if (Collections.binarySearch(medicineNames, text.toString()) > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public CharSequence fixText(CharSequence invalidText)
+        {
+            return "";
+        }
+    }
+
+    class FocusListener implements View.OnFocusChangeListener
+    {
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus)
+        {
+            if (v.getId() == R.id.editText_medicine_name && hasFocus)
+            {
+                Log.v("Test", "Performing validation");
+                ((AutoCompleteTextView) v).performValidation();
+            }
+        }
     }
 }
