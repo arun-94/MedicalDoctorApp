@@ -6,7 +6,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 
-@ParseClassName("PrescribedMedicine")
+@ParseClassName("PrescribedMedicines")
 public class PrescribedMedicine extends ParseObject
 {
     public PrescribedMedicine(){}

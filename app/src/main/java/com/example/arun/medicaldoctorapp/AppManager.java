@@ -33,7 +33,7 @@ public class AppManager extends Application
 
     public ArrayList<Prescription> currentDoctorPrescriptions = new ArrayList<>();
     public ArrayList<Medicine> medicinesList = new ArrayList<>();
-    public ParseUser selectedPatient;
+    public User selectedPatient;
 
     @Override
     public void onCreate()

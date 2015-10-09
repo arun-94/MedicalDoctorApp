@@ -26,7 +26,7 @@
             android:textSize="12sp"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editText_name"
+            android:id="@+id/editText_medicine_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:editable="true"
@@ -49,7 +49,7 @@
             android:textSize="12sp"/>
 
         <RadioGroup
-            android:id="@+id/radiogroup_payment_type"
+            android:id="@+id/radiogroup_medicine_type"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radio_cash"
+                android:id="@+id/radio_capsule"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,7 +66,7 @@
                 android:textSize="12sp"/>
 
             <RadioButton
-                android:id="@+id/radio_cashandcard"
+                android:id="@+id/radio_liquid"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -94,7 +94,7 @@
             android:orientation="horizontal">
 
             <SeekBar
-                android:id="@+id/seekBar"
+                android:id="@+id/seekbar_quantity"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -109,17 +109,37 @@
                 android:splitTrack="false"
                 android:thumbTint="@color/signal_green"/>
 
-            <TextView
-                android:id="@+id/textView2"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:minWidth="64dp"
-                android:text="1MG"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="12sp"/>
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textview_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:gravity="right"
+                    android:text="500"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/textview_MG_or_ML"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:gravity="left"
+                    android:text="MG"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="12sp"/>
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -141,7 +161,7 @@
 
 
             <CheckBox
-                android:id="@+id/checkbox_monday"
+                android:id="@+id/checkbox_morning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -152,7 +172,7 @@
                 android:textSize="12sp"/>
 
             <CheckBox
-                android:id="@+id/checkbox_tuesday"
+                android:id="@+id/checkbox_afternoon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -163,7 +183,7 @@
                 android:textSize="12sp"/>
 
             <CheckBox
-                android:id="@+id/checkbox_wednesday"
+                android:id="@+id/checkbox_evening"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -184,7 +204,7 @@
             android:textSize="12sp"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editText_duration"
+            android:id="@+id/editText_medicine_duration"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:editable="true"
@@ -207,7 +227,7 @@
             android:textSize="12sp"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editText_notes"
+            android:id="@+id/editText_medicine_notes"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:editable="true"
