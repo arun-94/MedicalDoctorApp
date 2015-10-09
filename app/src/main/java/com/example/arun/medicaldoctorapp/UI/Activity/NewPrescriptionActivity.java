@@ -163,7 +163,7 @@ public class NewPrescriptionActivity extends BaseActivity
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
-                PrescribedMedicine prescribedMedicine = new PrescribedMedicine();
+/*                PrescribedMedicine prescribedMedicine = new PrescribedMedicine();
                 //prescribedMedicine.set
 
                 Medicine m = new Medicine();
@@ -186,7 +186,7 @@ public class NewPrescriptionActivity extends BaseActivity
                 prescribedMedicineArrayList.add(prescribedMedicine);
                 prescription.putMedicineList(prescribedMedicineArrayList);
 
-                manager.addPrescription(prescription, manager.selectedPatient);
+                manager.addPrescription(prescription, manager.selectedPatient);*/
 
                 mAdapter.add(new Medicine());
             }

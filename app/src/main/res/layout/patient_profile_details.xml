@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/patient_profile_pic"
+        android:layout_alignStart="@+id/patient_profile_pic"
+        android:layout_alignTop="@id/patient_profile_pic"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundedrectangle"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="46dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/patient_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="left"
+                android:text="Puneet Kohli"
+                android:textAlignment="gravity"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/patient_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="left"
+                android:text="9819954448"
+                android:textAlignment="gravity"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="0"
+            android:id="@+id/person_amount"
+            android:layout_width="76dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="100/M"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="24dp"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+
+    <com.example.arun.medicaldoctorapp.UI.Custom.ProfilePictureView
+        android:id="@+id/patient_profile_pic"
+        com_facebook_preset_size="small"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:scaleType="centerCrop"/>
+
+</RelativeLayout>
+
