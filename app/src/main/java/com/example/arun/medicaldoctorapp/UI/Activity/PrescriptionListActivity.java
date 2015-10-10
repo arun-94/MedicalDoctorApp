@@ -32,7 +32,7 @@ public class PrescriptionListActivity extends BaseActivity
     @Override
     protected void setupToolbar()
     {
-        toolbar.setTitle("My Prescriptions");
+        getSupportActionBar().setTitle("My Prescriptions");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

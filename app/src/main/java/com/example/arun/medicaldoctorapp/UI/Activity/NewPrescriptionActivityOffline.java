@@ -111,7 +111,7 @@ public class NewPrescriptionActivityOffline extends BaseActivity
     @Override
     protected void setupToolbar()
     {
-        toolbar.setTitle("New Prescription");
+        getSupportActionBar().setTitle("New Prescription (Offline)");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

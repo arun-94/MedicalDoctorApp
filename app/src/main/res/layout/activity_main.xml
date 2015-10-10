@@ -36,13 +36,13 @@
                 android:ellipsize="end"
                 android:singleLine="false"
                 android:maxLines="2"
-                android:layout_gravity="center"/>
+                android:layout_gravity="left|center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="MD Diabetician, Family Doctor, Yeh woh, etc "
+                android:text="MBBS, MD Cardiology"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:id="@+id/home_doctor_title"
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Med App for Doctors"
+                android:text="ePrescription Management App for Doctors"
                 android:textSize="16sp"
                 android:fontFamily="sans-serif"
                 android:focusableInTouchMode="true"

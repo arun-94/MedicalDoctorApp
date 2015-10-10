@@ -124,7 +124,7 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
     @Override
     protected void setupToolbar()
     {
-        toolbar.setTitle("New Prescription");
+        getSupportActionBar().setTitle("New Prescription");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
