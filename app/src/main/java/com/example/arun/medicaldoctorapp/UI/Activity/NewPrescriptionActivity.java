@@ -71,7 +71,7 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
 
 
     @NotEmpty AutoCompleteTextView etMedicineName;
-    @NotEmpty  AutoCompleteTextView etMedicineDuration;
+    @NotEmpty AutoCompleteTextView etMedicineDuration;
     EditText etMedicineNotes;
     TextView tvQuantity;
     TextView tvLabel;
@@ -255,6 +255,8 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
+                prescriptionValidator = new Validator(NewPrescriptionActivity.this);
+                prescriptionValidator.setValidationListener(NewPrescriptionActivity.this);
                 prescriptionValidator.validate();
             }
         });
@@ -395,7 +397,7 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
 
         if (id == R.id.action_save)
         {
-            if(patientProfileLayout.getVisibility() != View.GONE && !prescribedMedicines.isEmpty())
+            if (patientProfileLayout.getVisibility() != View.GONE && !prescribedMedicines.isEmpty())
             {
                 progressValidation.setVisibility(View.VISIBLE);
 
@@ -411,10 +413,12 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
                     }
                 });
             }
-            else if(patientProfileLayout.getVisibility() == View.GONE){
+            else if (patientProfileLayout.getVisibility() == View.GONE)
+            {
                 Toast.makeText(NewPrescriptionActivity.this, "Please Enter a Mobile Number", Toast.LENGTH_SHORT).show();
             }
-            else {
+            else
+            {
                 Toast.makeText(NewPrescriptionActivity.this, "Please Prescribe Atleast 1 Medicine", Toast.LENGTH_SHORT).show();
 
             }
@@ -461,10 +465,14 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
             patientPhone.setText(manager.selectedPatient.getPhone());
 
             String patientGender;
-            if(manager.selectedPatient.isMale())
+            if (manager.selectedPatient.isMale())
+            {
                 patientGender = "M";
+            }
             else
+            {
                 patientGender = "F";
+            }
             personAmount.setText(manager.selectedPatient.getAge() + "/" + patientGender);
         }
         else if (type == Constants.TYPE_INVALID_NUMBER)
@@ -473,7 +481,8 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
             imageValidation.setVisibility(View.VISIBLE);
             //Set here X image
         }
-        else if(type == Constants.TYPE_PRESCRIPTION_ADDED) {
+        else if (type == Constants.TYPE_PRESCRIPTION_ADDED)
+        {
             progressValidation.setVisibility(View.GONE);
             manager.pushPrescriptionToPatient(manager.selectedPatient);
             gotoMainActivity();

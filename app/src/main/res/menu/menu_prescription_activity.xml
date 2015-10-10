@@ -3,7 +3,7 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.example.arun.medicaldoctorapp.UI.Activity.PrescriptionListActivity">
     <item android:id="@+id/action_save"
-          android:icon="@drawable/ic_green_tick"
+          android:icon="@drawable/ic_done_white_24dp"
           android:title="Save"
           android:orderInCategory="100"
           app:showAsAction="always"/>
