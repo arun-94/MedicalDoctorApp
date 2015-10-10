@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.AppManager;
@@ -14,10 +17,13 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity
 {
+    @Bind(R.id.progress_view) ProgressBar progressLoading;
+    @Bind(R.id.loginButton) Button loginButton;
     private String LOG_TAG = "LoginActivity";
     AppManager manager;
     ConnectivityManager cm;
@@ -26,6 +32,7 @@ public class LoginActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         ni = cm.getActiveNetworkInfo();
@@ -47,13 +54,15 @@ public class LoginActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-
+        progressLoading.setVisibility(View.INVISIBLE);
     }
 
     @OnClick(R.id.loginButton)
     void onLoginClick()
     {
+        progressLoading.setVisibility(View.VISIBLE);
 
+        loginButton.setText("");
 
         if ((ni != null) && (ni.isConnected()))
         {
@@ -61,6 +70,8 @@ public class LoginActivity extends BaseActivity
             {
                 public void done(ParseUser user, ParseException e)
                 {
+                    progressLoading.setVisibility(View.INVISIBLE);
+                    loginButton.setText("login with Test Credentials");
                     if (user != null)
                     {
                         gotoMainActivity();
@@ -74,7 +85,8 @@ public class LoginActivity extends BaseActivity
                 }
             });
         }
-        else {
+        else
+        {
             Toast.makeText(LoginActivity.this, "No Internet. Offline Mode.", Toast.LENGTH_SHORT).show();
             gotoMainActivityOffline();
         }

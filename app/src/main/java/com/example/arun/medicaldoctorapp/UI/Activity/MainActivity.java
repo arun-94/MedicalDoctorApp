@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.R;
 import com.parse.ParseUser;
@@ -90,4 +91,21 @@ public class MainActivity extends BaseActivity
         startActivity(intent);
     }
 
+    @OnClick(R.id.home_fab_settings)
+    void click1()
+    {
+        Toast.makeText(MainActivity.this, "No settings to show", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.home_fab_patients)
+    void click2()
+    {
+        Toast.makeText(MainActivity.this, "Viewing patient currently unavailable", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.home_fab_signature)
+    void click3()
+    {
+        Toast.makeText(MainActivity.this, "Adding signature coming soon", Toast.LENGTH_SHORT).show();
+    }
 }

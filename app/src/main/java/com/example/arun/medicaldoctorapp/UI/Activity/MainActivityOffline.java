@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.R;
 import com.parse.ParseUser;
@@ -89,6 +90,24 @@ public class MainActivityOffline extends BaseActivity
         Intent intent = new Intent(MainActivityOffline.this, PrescriptionListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.home_fab_settings)
+    void click1()
+    {
+        Toast.makeText(MainActivityOffline.this, "No settings to show", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.home_fab_patients)
+    void click2()
+    {
+        Toast.makeText(MainActivityOffline.this, "Viewing patient currently unavailable", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.home_fab_signature)
+    void click3()
+    {
+        Toast.makeText(MainActivityOffline.this, "Adding signature coming soon", Toast.LENGTH_SHORT).show();
     }
 }
 

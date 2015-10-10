@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.Constants;
 import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
@@ -208,7 +209,7 @@ public class NewPrescriptionActivityOffline extends BaseActivity
 
         if (id == R.id.action_save)
         {
-
+            Toast.makeText(NewPrescriptionActivityOffline.this, "Offline Mode. Can't save.", Toast.LENGTH_LONG).show();
         }
         else if (id == android.R.id.home)
         {
