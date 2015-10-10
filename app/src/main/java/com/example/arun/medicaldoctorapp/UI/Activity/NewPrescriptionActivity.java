@@ -169,7 +169,7 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
                     if (isValidPhoneNumber(s))
                     {
                         progressValidation.setVisibility(View.VISIBLE);
-                        manager.searchPatientByPhoneNumber(s.toString());
+                        manager.searchPatientByPhoneNumberOffline(s.toString());
                     }
                 }
             }

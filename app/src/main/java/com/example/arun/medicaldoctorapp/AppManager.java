@@ -1,7 +1,10 @@
 package com.example.arun.medicaldoctorapp;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.arun.medicaldoctorapp.ParseObjects.User;
@@ -35,11 +38,15 @@ public class AppManager extends Application
     public ArrayList<Medicine> medicinesList = new ArrayList<>();
     public User selectedPatient;
     public AsyncResponse delegate = null;
+    ConnectivityManager cm;
+    NetworkInfo ni;
 
     @Override
     public void onCreate()
     {
         super.onCreate();
+        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ni = cm.getActiveNetworkInfo();
         parseInit();
         fetchAllDataFromParse();
     }
@@ -62,18 +69,20 @@ public class AppManager extends Application
 
     public void fetchMedicineList()
     {
-
-        ParseQuery<Medicine> query = Medicine.getQuery();
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<Medicine>()
+        if ((ni != null) && (ni.isConnected()))
         {
-
-            @Override
-            public void done(List<Medicine> list, ParseException e)
+            ParseQuery<Medicine> query = Medicine.getQuery();
+            query.setLimit(1000);
+            query.findInBackground(new FindCallback<Medicine>()
             {
-                medicinesList.addAll(list);
-            }
-        });
+
+                @Override
+                public void done(List<Medicine> list, ParseException e)
+                {
+                    medicinesList.addAll(list);
+                }
+            });
+        }
     }
 
     private void refreshUserDataAndFetchNewPrescriptionList()
@@ -208,5 +217,17 @@ public class AppManager extends Application
         {
             e.printStackTrace();
         }
+    }
+
+    public void searchPatientByPhoneNumberOffline(String s)
+    {
+
+        selectedPatient = new User();
+        selectedPatient.put("is_male", true);
+        selectedPatient.put("name", "Offline Patient");
+        selectedPatient.put("phone", "9876543210");
+        selectedPatient.put("is_doctor", false);
+        selectedPatient.put("age", "xx");
+        delegate.processFinish("error", Constants.TYPE_VALID_NUMBER);
     }
 }

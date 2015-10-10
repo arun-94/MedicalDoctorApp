@@ -37,7 +37,6 @@
         <activity
             android:name=".UI.Activity.NewPrescriptionActivity"
             android:label="@string/app_name" >
-
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -47,6 +46,14 @@
         <activity
             android:name=".UI.Activity.PrescriptionListActivity"
             android:label="@string/title_activity_prescription_list" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.MainActivityOffline"
+            android:label="@string/title_activity_main_activity_offline" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.NewPrescriptionActivityOffline"
+            android:label="@string/title_activity_new_prescription_activity_offline" >
         </activity>
     </application>
 

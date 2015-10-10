@@ -1,7 +1,11 @@
 package com.example.arun.medicaldoctorapp.UI.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.AppManager;
 import com.example.arun.medicaldoctorapp.R;
@@ -16,11 +20,15 @@ public class LoginActivity extends BaseActivity
 {
     private String LOG_TAG = "LoginActivity";
     AppManager manager;
+    ConnectivityManager cm;
+    NetworkInfo ni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ni = cm.getActiveNetworkInfo();
         ParseFacebookUtils.initialize(this);
     }
 
@@ -45,20 +53,37 @@ public class LoginActivity extends BaseActivity
     @OnClick(R.id.loginButton)
     void onLoginClick()
     {
-        ParseUser.logInInBackground("TestDoctor", "test123", new LogInCallback()
+
+
+        if ((ni != null) && (ni.isConnected()))
         {
-            public void done(ParseUser user, ParseException e)
+            ParseUser.logInInBackground("TestDoctor", "test123", new LogInCallback()
             {
-                if (user != null)
+                public void done(ParseUser user, ParseException e)
                 {
-                    gotoMainActivity();
+                    if (user != null)
+                    {
+                        gotoMainActivity();
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginActivity.this, "No Internet. Login Failed.", Toast.LENGTH_SHORT).show();
+
+                        // Signup failed. Look at the ParseException to see what happened.
+                    }
                 }
-                else
-                {
-                    // Signup failed. Look at the ParseException to see what happened.
-                }
-            }
-        });
+            });
+        }
+        else {
+            gotoMainActivityOffline();
+        }
+    }
+
+    private void gotoMainActivityOffline()
+    {
+        Intent intent = new Intent(LoginActivity.this, MainActivityOffline.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void gotoMainActivity()
