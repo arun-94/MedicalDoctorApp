@@ -68,7 +68,7 @@ public class LoginActivity extends BaseActivity
                     else
                     {
                         Toast.makeText(LoginActivity.this, "No Internet. Login Failed.", Toast.LENGTH_SHORT).show();
-
+                        gotoMainActivityOffline();
                         // Signup failed. Look at the ParseException to see what happened.
                     }
                 }
@@ -76,7 +76,6 @@ public class LoginActivity extends BaseActivity
         }
         else {
             Toast.makeText(LoginActivity.this, "No Internet. Offline Mode.", Toast.LENGTH_SHORT).show();
-
             gotoMainActivityOffline();
         }
     }
