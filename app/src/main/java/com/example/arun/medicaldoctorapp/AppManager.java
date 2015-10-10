@@ -59,6 +59,7 @@ public class AppManager extends Application
         ParseObject.registerSubclass(PrescribedMedicine.class);
         ParseObject.registerSubclass(Prescription.class);
         Parse.initialize(this, "cvSyybrwMKzHdVwpvUQ2ftclezIYsunMzz6UtUP7", "szykRYtChmUBK1FhyapdUrHI2lGOECH3dIjUCL1c");
+        ParseUser.enableRevocableSessionInBackground();
     }
 
     public void fetchAllDataFromParse()
@@ -239,3 +240,4 @@ public class AppManager extends Application
         delegate.processFinish("error", Constants.TYPE_VALID_NUMBER);
     }
 }
+

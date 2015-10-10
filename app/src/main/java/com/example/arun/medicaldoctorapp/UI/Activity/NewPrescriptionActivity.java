@@ -469,17 +469,18 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
             patientName.setText(manager.selectedPatient.getName());
             patientPhone.setText(manager.selectedPatient.getPhone());
 
-
-            manager.selectedPatient.getProfilePic().getDataInBackground(new GetDataCallback()
+            if(manager.selectedPatient.getProfilePic() != null)
             {
-                @Override
-                public void done(byte[] bytes, ParseException e)
+                manager.selectedPatient.getProfilePic().getDataInBackground(new GetDataCallback()
                 {
-                    Bitmap bm = ImageUtility.decodeSampledBitmapFromByte(NewPrescriptionActivity.this, bytes);
-                   patientImage.setImageBitmap(bm);
-                }
-            });
-
+                    @Override
+                    public void done(byte[] bytes, ParseException e)
+                    {
+                        Bitmap bm = ImageUtility.decodeSampledBitmapFromByte(NewPrescriptionActivity.this, bytes);
+                        patientImage.setImageBitmap(bm);
+                    }
+                });
+            }
             String patientGender;
             if (manager.selectedPatient.isMale())
             {
