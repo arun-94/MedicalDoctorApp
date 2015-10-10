@@ -75,6 +75,8 @@ public class LoginActivity extends BaseActivity
             });
         }
         else {
+            Toast.makeText(LoginActivity.this, "No Internet. Offline Mode.", Toast.LENGTH_SHORT).show();
+
             gotoMainActivityOffline();
         }
     }
