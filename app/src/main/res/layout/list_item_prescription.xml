@@ -12,11 +12,12 @@
               android:paddingRight="8dp"
               android:paddingTop="8dp">
 
-    <com.example.arun.medicaldoctorapp.UI.Custom.ProfilePictureView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/prescription_profile_pic"
         com_facebook_preset_size="small"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:src="@drawable/com_facebook_profile_picture_blank_portrait"
         android:scaleType="centerCrop"/>
 
     <RelativeLayout

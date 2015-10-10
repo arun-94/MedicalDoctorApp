@@ -85,31 +85,39 @@ public class AppManager extends Application
         }
     }
 
-    private void refreshUserDataAndFetchNewPrescriptionList()
+    public void getAllPrescriptionsFromCurrentPatient()
     {
-        final ParseUser currentUser = User.getCurrentUser();
-        currentUser.fetchInBackground(new GetCallback<User>()
+
+        if ((ni != null) && (ni.isConnected()))
         {
-            @Override
-            public void done(final User parseObject, ParseException e)
+            ParseQuery<Prescription> query = Prescription.getQuery();
+
+            query.whereEqualTo("doctor_id", ParseUser.getCurrentUser());
+            query.include("doctor_id");
+            query.include("patient_id");
+            query.include("medicine_ids");
+            query.include("medicine_ids.medicine");
+            query.findInBackground(new FindCallback<Prescription>()
             {
-                ParseQuery<ParseUser> query = ParseUser.getQuery();
-
-                query.include("prescription_list");
-
-                query.getInBackground(currentUser.getObjectId(), new GetCallback<ParseUser>()
+                @Override
+                public void done(List<Prescription> list, ParseException e)
                 {
-
-                    @Override
-                    public void done(ParseUser parseUser, ParseException e)
+                    if (e == null)
                     {
-
-                        User doctor = (User) parseUser;
-                        currentDoctorPrescriptions.addAll(doctor.getPrescriptionList());
+                        Log.d("Manager", "Size of list ; " + list.size());
+                        currentDoctorPrescriptions.clear();
+                        currentDoctorPrescriptions.addAll(list);
+                        delegate.processFinish("manager", Constants.TYPE_RECIEVED_PRESCRIPTIONS);
                     }
-                });
-            }
-        });
+                    else
+                    {
+                        Log.d("AppManager", e.getMessage());
+                    }
+                }
+            });
+
+        }
+
     }
 
     public void addPrescription(final Prescription p)

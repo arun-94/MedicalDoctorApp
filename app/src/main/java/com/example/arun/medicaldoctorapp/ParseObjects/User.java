@@ -48,4 +48,7 @@ public class User extends ParseUser
         put("signature", signature);
     }
 
+    public ParseFile getProfilePic() {
+        return (ParseFile) getParseFile("profile_pic");
+    }
 }

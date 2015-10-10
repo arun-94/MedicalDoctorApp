@@ -101,7 +101,7 @@
         android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:layout_gravity="top|center_horizontal"
-        android:src="@drawable/sampledoctorimg"
+        android:src="@drawable/download"
         app:border_color="@color/light_grey"
         app:border_width="4dp"/>
 

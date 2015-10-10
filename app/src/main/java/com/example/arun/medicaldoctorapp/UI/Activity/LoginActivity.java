@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.arun.medicaldoctorapp.AppManager;
 import com.example.arun.medicaldoctorapp.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -25,7 +25,6 @@ public class LoginActivity extends BaseActivity
     @Bind(R.id.progress_view) ProgressBar progressLoading;
     @Bind(R.id.loginButton) Button loginButton;
     private String LOG_TAG = "LoginActivity";
-    AppManager manager;
     ConnectivityManager cm;
     NetworkInfo ni;
 
@@ -34,6 +33,7 @@ public class LoginActivity extends BaseActivity
     {
 
         super.onCreate(savedInstanceState);
+        manager.delegate = this;
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         ni = cm.getActiveNetworkInfo();
         ParseFacebookUtils.initialize(this);
@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity
                     }
                     else
                     {
+                        Log.e("Login Failed", e.getMessage());
                         Toast.makeText(LoginActivity.this, "No Internet. Login Failed. Switching to Offline access.", Toast.LENGTH_SHORT).show();
                         gotoMainActivityOffline();
                         // Signup failed. Look at the ParseException to see what happened.

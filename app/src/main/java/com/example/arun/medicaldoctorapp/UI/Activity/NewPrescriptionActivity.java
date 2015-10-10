@@ -3,6 +3,7 @@ package com.example.arun.medicaldoctorapp.UI.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.Constants;
+import com.example.arun.medicaldoctorapp.ImageUtility;
 import com.example.arun.medicaldoctorapp.ParseObjects.PrescribedMedicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.Prescription;
 import com.example.arun.medicaldoctorapp.ParseObjects.User;
@@ -35,6 +37,7 @@ import com.example.arun.medicaldoctorapp.UI.Adapter.MedicineAdapter;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -45,6 +48,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewPrescriptionActivity extends BaseActivity implements Validator.ValidationListener
 {
@@ -57,6 +61,7 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
     @Bind(R.id.textView_number_label) TextView tvPhoneLabel;
 
 
+    @Bind(R.id.prescription_profile_pic) CircleImageView patientImage;
     @Bind(R.id.patient_name) TextView patientName;
     @Bind(R.id.patient_phone) TextView patientPhone;
     @Bind(R.id.person_amount) TextView personAmount;
@@ -463,6 +468,17 @@ public class NewPrescriptionActivity extends BaseActivity implements Validator.V
 
             patientName.setText(manager.selectedPatient.getName());
             patientPhone.setText(manager.selectedPatient.getPhone());
+
+
+            manager.selectedPatient.getProfilePic().getDataInBackground(new GetDataCallback()
+            {
+                @Override
+                public void done(byte[] bytes, ParseException e)
+                {
+                    Bitmap bm = ImageUtility.decodeSampledBitmapFromByte(NewPrescriptionActivity.this, bytes);
+                   patientImage.setImageBitmap(bm);
+                }
+            });
 
             String patientGender;
             if (manager.selectedPatient.isMale())
