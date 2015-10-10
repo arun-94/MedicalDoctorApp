@@ -29,6 +29,8 @@ public class User extends ParseUser
         return getInt("age");
     }
 
+    public String getName() {return getString("name");}
+
     public boolean isDoctor() {
         return true;
     }

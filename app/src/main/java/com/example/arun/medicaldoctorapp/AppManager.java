@@ -64,7 +64,7 @@ public class AppManager extends Application
     {
 
         ParseQuery<Medicine> query = Medicine.getQuery();
-
+        query.setLimit(1000);
         query.findInBackground(new FindCallback<Medicine>()
         {
 
@@ -119,7 +119,7 @@ public class AppManager extends Application
                     {
                         if (e == null)
                         {
-
+                            delegate.processFinish("added prescription", Constants.TYPE_PRESCRIPTION_ADDED);
                         }
                         else
                         {
@@ -144,7 +144,7 @@ public class AppManager extends Application
             public void done(List<ParseUser> list, ParseException e)
             {
                 Log.d("PATIENT", "Size of list returned is " + list.size());
-                if(list.size() == 0)
+                if (list.size() == 0)
                 {
                     Log.d("PATIENT", "No patient with that number");
                     delegate.processFinish("error", Constants.TYPE_INVALID_NUMBER);
@@ -200,7 +200,7 @@ public class AppManager extends Application
             ParsePush parsePush = new ParsePush();
             parsePush.setQuery(pQuery);
             parsePush.setMessage("You have a new prescription");
-            parsePush.setData(data);
+           // parsePush.setData(data);
             parsePush.sendInBackground();
 
         }
@@ -208,7 +208,5 @@ public class AppManager extends Application
         {
             e.printStackTrace();
         }
-
-
     }
 }

@@ -1,15 +1,11 @@
 package com.example.arun.medicaldoctorapp.UI.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.arun.medicaldoctorapp.ParseObjects.Prescription;
 import com.example.arun.medicaldoctorapp.R;
-import com.example.arun.medicaldoctorapp.UI.Adapter.MedicineAdapter;
 import com.example.arun.medicaldoctorapp.UI.Adapter.PrescriptionAdapter;
 
 import butterknife.Bind;

@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.arun.medicaldoctorapp.R;
+import com.parse.ParseUser;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity
 {
+    @Bind(R.id.home_doctor_name) TextView doctorName;
 
     @OnClick(R.id.home_fab_new_prescription)
     void addPrescription()
@@ -25,6 +30,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -42,7 +48,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-
+        doctorName.setText(ParseUser.getCurrentUser().getString("name"));
     }
 
     @Override

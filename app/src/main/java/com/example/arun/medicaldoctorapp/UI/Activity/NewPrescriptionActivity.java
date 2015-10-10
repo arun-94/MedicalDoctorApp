@@ -2,6 +2,7 @@ package com.example.arun.medicaldoctorapp.UI.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,25 +24,29 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arun.medicaldoctorapp.Constants;
-import com.example.arun.medicaldoctorapp.ParseObjects.Medicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.PrescribedMedicine;
 import com.example.arun.medicaldoctorapp.ParseObjects.Prescription;
 import com.example.arun.medicaldoctorapp.ParseObjects.User;
 import com.example.arun.medicaldoctorapp.R;
 import com.example.arun.medicaldoctorapp.UI.Adapter.MedicineAdapter;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class NewPrescriptionActivity extends BaseActivity
+public class NewPrescriptionActivity extends BaseActivity implements Validator.ValidationListener
 {
     @Bind(R.id.medicine_recycler) RecyclerView mRecyclerView;
     @Bind(R.id.editText_patient_phone_number) EditText etPhoneNum;
@@ -50,12 +56,31 @@ public class NewPrescriptionActivity extends BaseActivity
     @Bind(R.id.phonenumber_layout) View phoneNumberLayout;
     @Bind(R.id.textView_number_label) TextView tvPhoneLabel;
 
+
+    @Bind(R.id.patient_name) TextView patientName;
+    @Bind(R.id.patient_phone) TextView patientPhone;
+    @Bind(R.id.person_amount) TextView personAmount;
+
     private MedicineAdapter mAdapter;
     private Prescription prescription;
     private User patient;
     private ArrayList<PrescribedMedicine> prescribedMedicines;
     private ArrayList<String> medicineNames;
     private ArrayList<String> durationList;
+    private Validator prescriptionValidator;
+
+
+    @NotEmpty AutoCompleteTextView etMedicineName;
+    @NotEmpty  AutoCompleteTextView etMedicineDuration;
+    EditText etMedicineNotes;
+    TextView tvQuantity;
+    TextView tvLabel;
+    CheckBox checkMorning;
+    CheckBox checkAfternoon;
+    CheckBox checkEvening;
+    RadioGroup radioMedicineType;
+    SeekBar seekbarQuantity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,7 +90,12 @@ public class NewPrescriptionActivity extends BaseActivity
         durationList = new ArrayList<>();
         prescribedMedicines = new ArrayList<>();
         setDurationList();
+        prescriptionValidator = new Validator(this);
+        prescriptionValidator.setValidationListener(this);
         super.onCreate(savedInstanceState);
+        manager.delegate = this;
+
+
     }
 
     private void setDurationList()
@@ -154,16 +184,16 @@ public class NewPrescriptionActivity extends BaseActivity
         builder.setTitle("Prescribe New Medicine");
         View customDialogView = inflater.inflate(R.layout.popup_add_medicine, null, false);
 
-        final AutoCompleteTextView etMedicineName = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_name);
-        final AutoCompleteTextView etMedicineDuration = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_duration);
-        final EditText etMedicineNotes = (EditText) customDialogView.findViewById(R.id.editText_medicine_notes);
-        final TextView tvQuantity = (TextView) customDialogView.findViewById(R.id.textview_quantity);
-        final TextView tvLabel = (TextView) customDialogView.findViewById(R.id.textview_MG_or_ML);
-        final CheckBox checkMorning = (CheckBox) customDialogView.findViewById(R.id.checkbox_morning);
-        final CheckBox checkAfternoon = (CheckBox) customDialogView.findViewById(R.id.checkbox_afternoon);
-        final CheckBox checkEvening = (CheckBox) customDialogView.findViewById(R.id.checkbox_evening);
-        final RadioGroup radioMedicineType = (RadioGroup) customDialogView.findViewById(R.id.radiogroup_medicine_type);
-        final SeekBar seekbarQuantity = (SeekBar) customDialogView.findViewById(R.id.seekbar_quantity);
+        etMedicineName = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_name);
+        etMedicineDuration = (AutoCompleteTextView) customDialogView.findViewById(R.id.editText_medicine_duration);
+        etMedicineNotes = (EditText) customDialogView.findViewById(R.id.editText_medicine_notes);
+        tvQuantity = (TextView) customDialogView.findViewById(R.id.textview_quantity);
+        tvLabel = (TextView) customDialogView.findViewById(R.id.textview_MG_or_ML);
+        checkMorning = (CheckBox) customDialogView.findViewById(R.id.checkbox_morning);
+        checkAfternoon = (CheckBox) customDialogView.findViewById(R.id.checkbox_afternoon);
+        checkEvening = (CheckBox) customDialogView.findViewById(R.id.checkbox_evening);
+        radioMedicineType = (RadioGroup) customDialogView.findViewById(R.id.radiogroup_medicine_type);
+        seekbarQuantity = (SeekBar) customDialogView.findViewById(R.id.seekbar_quantity);
 
 
         ArrayAdapter<String> medicineNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, medicineNames);
@@ -225,37 +255,7 @@ public class NewPrescriptionActivity extends BaseActivity
         {
             public void onClick(DialogInterface dialog, int whichButton)
             {
-                PrescribedMedicine prescribedMedicine = new PrescribedMedicine();
-                //prescribedMedicine.set
-
-                for (int i = 0; i < manager.medicinesList.size(); i++)
-                {
-                    if (manager.medicinesList.get(i).getMedicineName().contains(etMedicineName.getText().toString().trim()))
-                    {
-                        prescribedMedicine.setMedicine(manager.medicinesList.get(i));
-                        break;
-                    }
-                }
-
-                prescribedMedicine.setDuration(etMedicineDuration.getText().toString());
-                prescribedMedicine.setNotes(etMedicineNotes.getText().toString());
-
-                ArrayList<Integer> timesADay = new ArrayList<Integer>();
-                timesADay.add(boolToInt(checkMorning.isChecked()));
-                timesADay.add(boolToInt(checkAfternoon.isChecked()));
-                timesADay.add(boolToInt(checkEvening.isChecked()));
-
-                prescribedMedicine.setType(tvLabel.getText().toString().contains("G"));
-
-                prescribedMedicine.setTimesADay(timesADay);
-                prescribedMedicine.setQuantity(tvQuantity.getText().toString() + tvLabel.getText().toString());
-                //ArrayList<PrescribedMedicine> prescribedMedicineArrayList = new ArrayList<PrescribedMedicine>();
-                //prescribedMedicineArrayList.add(prescribedMedicine);
-                //prescription.putMedicineList(prescribedMedicineArrayList);
-
-                //manager.addPrescription(prescription, manager.selectedPatient);
-                mAdapter.add(prescribedMedicine);
-                prescribedMedicines.add(prescribedMedicine);
+                prescriptionValidator.validate();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
@@ -281,6 +281,55 @@ public class NewPrescriptionActivity extends BaseActivity
     public int boolToInt(boolean b)
     {
         return b ? 1 : 0;
+    }
+
+    @Override
+    public void onValidationSucceeded()
+    {
+        PrescribedMedicine prescribedMedicine = new PrescribedMedicine();
+        //prescribedMedicine.set
+
+        for (int i = 0; i < manager.medicinesList.size(); i++)
+        {
+            if (manager.medicinesList.get(i).getMedicineName().contains(etMedicineName.getText().toString().trim()))
+            {
+                prescribedMedicine.setMedicine(manager.medicinesList.get(i));
+                break;
+            }
+        }
+
+        prescribedMedicine.setDuration(etMedicineDuration.getText().toString());
+        prescribedMedicine.setNotes(etMedicineNotes.getText().toString());
+
+        ArrayList<Integer> timesADay = new ArrayList<Integer>();
+        timesADay.add(boolToInt(checkMorning.isChecked()));
+        timesADay.add(boolToInt(checkAfternoon.isChecked()));
+        timesADay.add(boolToInt(checkEvening.isChecked()));
+
+        prescribedMedicine.setType(tvLabel.getText().toString().contains("G"));
+
+        prescribedMedicine.setTimesADay(timesADay);
+        prescribedMedicine.setQuantity(tvQuantity.getText().toString() + tvLabel.getText().toString());
+        //ArrayList<PrescribedMedicine> prescribedMedicineArrayList = new ArrayList<PrescribedMedicine>();
+        //prescribedMedicineArrayList.add(prescribedMedicine);
+        //prescription.putMedicineList(prescribedMedicineArrayList);
+
+        //manager.addPrescription(prescription, manager.selectedPatient);
+        mAdapter.add(prescribedMedicine);
+        prescribedMedicines.add(prescribedMedicine);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors)
+    {
+        for (ValidationError error : errors)
+        {
+            String message = "Please Enter All Fields";
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            etMedicineName.clearListSelection();
+            etMedicineDuration.clearListSelection();
+
+        }
     }
 
     class NamesValidator implements AutoCompleteTextView.Validator
@@ -328,6 +377,15 @@ public class NewPrescriptionActivity extends BaseActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_prescription_activity, menu);
+        return true;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Handle action bar item clicks here. The action bar will
@@ -335,19 +393,31 @@ public class NewPrescriptionActivity extends BaseActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings)
+        if (id == R.id.action_save)
         {
-            prescription.putMedicineList(prescribedMedicines);
-            prescription.setDoctorID(ParseUser.getCurrentUser());
-            prescription.setPatientID(manager.selectedPatient);
-            prescription.saveInBackground(new SaveCallback()
+            if(patientProfileLayout.getVisibility() != View.GONE && !prescribedMedicines.isEmpty())
             {
-                @Override
-                public void done(ParseException e)
+                progressValidation.setVisibility(View.VISIBLE);
+
+                prescription.putMedicineList(prescribedMedicines);
+                prescription.setDoctorID(ParseUser.getCurrentUser());
+                prescription.setPatientID(manager.selectedPatient);
+                prescription.saveInBackground(new SaveCallback()
                 {
-                    manager.addPrescription(prescription);
-                }
-            });
+                    @Override
+                    public void done(ParseException e)
+                    {
+                        manager.addPrescription(prescription);
+                    }
+                });
+            }
+            else if(patientProfileLayout.getVisibility() == View.GONE){
+                Toast.makeText(NewPrescriptionActivity.this, "Please Enter a Mobile Number", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(NewPrescriptionActivity.this, "Please Prescribe Atleast 1 Medicine", Toast.LENGTH_SHORT).show();
+
+            }
 
             /*Intent i = new Intent(BaseActivity.this, AboutActivity.class);
             startActivity(i);
@@ -386,6 +456,16 @@ public class NewPrescriptionActivity extends BaseActivity
             phoneNumberLayout.setVisibility(View.GONE);
             tvPhoneLabel.setVisibility(View.GONE);
             //Set here tick image
+
+            patientName.setText(manager.selectedPatient.getName());
+            patientPhone.setText(manager.selectedPatient.getPhone());
+
+            String patientGender;
+            if(manager.selectedPatient.isMale())
+                patientGender = "M";
+            else
+                patientGender = "F";
+            personAmount.setText(manager.selectedPatient.getAge() + "/" + patientGender);
         }
         else if (type == Constants.TYPE_INVALID_NUMBER)
         {
@@ -393,5 +473,20 @@ public class NewPrescriptionActivity extends BaseActivity
             imageValidation.setVisibility(View.VISIBLE);
             //Set here X image
         }
+        else if(type == Constants.TYPE_PRESCRIPTION_ADDED) {
+            progressValidation.setVisibility(View.GONE);
+            manager.pushPrescriptionToPatient(manager.selectedPatient);
+            gotoMainActivity();
+        }
     }
+
+    private void gotoMainActivity()
+    {
+        // manager.fetchDataFromParse();
+
+        Intent intent = new Intent(NewPrescriptionActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
 }
