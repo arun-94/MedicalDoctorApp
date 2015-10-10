@@ -155,7 +155,7 @@ public class AppManager extends Application
                     Log.d("PATIENT", "Selected Patient class " + selectedPatient.getClassName());
                     Log.d("PATIENT", "The patient from list is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
                     Log.d("PATIENT", "The patient is " + list.get(0).getUsername() + "Type is " + list.get(0).getClassName());
-                    delegate.processFinish("error", Constants.TYPE_VALID_NUMBER);
+                    delegate.processFinish("manager", Constants.TYPE_VALID_NUMBER);
                 }
             }
         });
