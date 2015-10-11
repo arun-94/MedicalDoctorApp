@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="?android:attr/actionBarSize">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@+id/linearLayout"
+            android:src="@drawable/download"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout android:id="@+id/linearLayout"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerHorizontal="true"
+                  android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header_dr_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Dr. Sarah Testing"
+            android:textAlignment="gravity"
+            android:textAppearance="@style/Klassy_TextStyle_Title"
+            android:textStyle="italic|bold"/>
+
+        <TextView
+            android:id="@+id/header_dr_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Shivajinagar, Behind Esquare"
+            android:textAlignment="gravity"
+            android:textStyle="bold"
+            android:lines="2"/>
+    </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

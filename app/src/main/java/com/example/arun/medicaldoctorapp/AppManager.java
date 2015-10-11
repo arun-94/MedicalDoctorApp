@@ -40,6 +40,7 @@ public class AppManager extends Application
     public AsyncResponse delegate = null;
     ConnectivityManager cm;
     NetworkInfo ni;
+    public Prescription selectedPrescription;
 
     @Override
     public void onCreate()
@@ -98,6 +99,7 @@ public class AppManager extends Application
             query.include("patient_id");
             query.include("medicine_ids");
             query.include("medicine_ids.medicine");
+            query.orderByDescending("createdAt");
             query.findInBackground(new FindCallback<Prescription>()
             {
                 @Override

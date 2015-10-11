@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="16dp"
+    android:layout_weight="1"
+    android:paddingTop="16dp"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/notes_layout"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Name: "
+            android:layout_weight="0"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/prescription_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/notes_layout"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Arun Swaminathan"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/notes_layout"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Age/Gender: "
+            android:layout_weight="0"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/prescription_age_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/notes_layout"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="41/M"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notes_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="0"
+        android:gravity="top"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/notes_layout"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Date: "
+            android:layout_weight="0"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/prescription_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="top"
+            android:layout_weight="0"
+            android:gravity="right"
+            android:maxWidth="100dp"
+            android:paddingTop="8dp"
+            android:text="11/10/15"
+            android:textAlignment="gravity"/>
+    </LinearLayout>
+
+</RelativeLayout>
+
+

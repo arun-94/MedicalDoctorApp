@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.example.arun.medicaldoctorapp.Constants;
 import com.example.arun.medicaldoctorapp.R;
 import com.example.arun.medicaldoctorapp.UI.Adapter.PrescriptionAdapter;
+import com.example.arun.medicaldoctorapp.UI.Custom.RecyclerItemClickListener;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -54,7 +55,16 @@ public class PrescriptionListActivity extends BaseActivity
         mRecyclerView.setLayoutManager(llm);
         mAdapter = new PrescriptionAdapter(PrescriptionListActivity.this, null);
         mRecyclerView.setAdapter(mAdapter);
-
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(PrescriptionListActivity.this, new RecyclerItemClickListener.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View view, int itempos)
+            {
+                manager.selectedPrescription = manager.currentDoctorPrescriptions.get(itempos);
+                Intent productListIntent = new Intent(PrescriptionListActivity.this, PrescriptionDetailActivity.class);
+                startActivity(productListIntent);
+            }
+        }));
     }
 
     @Override

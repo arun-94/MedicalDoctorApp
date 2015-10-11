@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_weight="1"
+    android:gravity="center_vertical">
+
+
+    <TextView
+        android:id="@+id/prescribed_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/prescribed_quantity"
+        android:ellipsize="end"
+        android:gravity="top"
+        android:maxLines="1"
+        android:text="Aspirin"
+        android:textAppearance="@style/Tisser_TextStyle_Title"/>
+
+    <TextView
+        android:id="@+id/prescribed_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/prescribed_name"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignStart="@+id/prescribed_name"
+        android:layout_below="@+id/prescribed_name"
+        android:layout_marginTop="4dp"
+        android:text="3 days"
+        android:textAlignment="gravity"
+        android:textAppearance="@style/Tisser_TextStyle_Subtitle"/>
+
+    <TextView
+        android:id="@+id/prescribed_quantity"
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/prescribed_duration"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/prescribed_name"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="0"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_vertical|right"
+        android:maxWidth="100dp"
+        android:text="500MG"
+        android:textAlignment="gravity"
+        android:textAppearance="@style/Tisser_TextStyle_Subtitle"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:id="@+id/notes_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/prescribed_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/prescribed_duration"
+        android:layout_weight="0"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/notes_layout"
+            android:layout_weight="0"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:text="Note: "
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/prescribed_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="top"
+            android:layout_weight="0"
+            android:gravity="right"
+            android:maxWidth="100dp"
+            android:paddingTop="8dp"
+            android:text="10 weeks ago"
+            android:textAlignment="gravity"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/time_layout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/notes_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textview_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:maxWidth="100dp"
+            android:text="1"
+            android:textAlignment="gravity"
+            android:textSize="12sp"/>
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/textview_afternoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:maxWidth="100dp"
+            android:text="1"
+            android:textAlignment="gravity"
+            android:textSize="12sp"/>
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/textview_evening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:maxWidth="100dp"
+            android:text="1"
+            android:textAlignment="gravity"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/time_layout"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
